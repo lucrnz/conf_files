@@ -128,4 +128,4 @@ alias grep='grep --color=auto'
 alias _fm="fork_muted"
 
 # host quirks
-source_ifexists "$HOME/.conf_files/host_quirks/$(hostname).sh"
+source_ifexists "$HOME/.conf_files/host_quirks/$HOSTNAME.sh"
