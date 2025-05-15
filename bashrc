@@ -21,7 +21,8 @@ prepend_path "~/.dotnet/tools"
 prepend_path "~/.local/share/flutter_sdk"
 
 # completions
-source_ifexists "/etc/bash_completion"
+source_ifexists "/usr/share/bash-completion/bash_completion"
+source_ifexists "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
 # prompt
 if cmd_exists starship; then
