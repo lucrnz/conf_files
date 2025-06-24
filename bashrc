@@ -13,12 +13,16 @@ fork_muted() { "$@" >/dev/null 2>&1 & }
 source_ifexists() { [ -s "$1" ] && source "$1"; }
 ensure_dir() { [ ! -d "$1" ] || mkdir -p "$1"; }
 
+# env vars
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
 # path additions
 prepend_path "/snap/bin"
 prepend_path "~/.local/bin"
 prepend_path "~/.conf_files/scripts"
 prepend_path "~/.dotnet/tools"
-prepend_path "~/.local/share/flutter_sdk"
+prepend_path "~/.local/opt/flutter_sdk"
+prepend_path "~/.local/opt/dotnet"
 
 # completions
 source_ifexists "/usr/share/bash-completion/bash_completion"
@@ -83,8 +87,8 @@ if ! _brew_provides node; then
 fi
 
 # pnpm
-if ! _brew_provides pnpm && [ -d "$HOME/.local/share/pnpm" ]; then
-    export PNPM_HOME="$HOME/.local/share/pnpm"
+if ! _brew_provides pnpm && [ -d "$HOME/.local/opt/pnpm" ]; then
+    export PNPM_HOME="$HOME/.local/opt/pnpm"
     case ":$PATH:" in
         *":$PNPM_HOME:"*) ;;
         *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -99,8 +103,8 @@ if ! _brew_provides bun && [ -d "$HOME/.bun" ]; then
 fi
 
 # go
-if ! _brew_provides go && [ -d "$HOME/.local/share/go" ]; then
-    export GOROOT="$HOME/.local/share/go"
+if ! _brew_provides go && [ -d "$HOME/.local/opt/go" ]; then
+    export GOROOT="$HOME/.local/opt/go"
     export GOPATH="$HOME/go"
     prepend_path "$GOROOT/bin"
     prepend_path "$GOPATH/bin"
