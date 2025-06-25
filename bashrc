@@ -7,22 +7,22 @@ HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
 # functions
-cmd_exists() { command -v "$1" &>/dev/null; }
-prepend_path() { [ -d "$1" ] && export PATH="$1:$PATH"; }
+cmd_exists() { command -v "$@" &>/dev/null; }
+prepend_path() { test -d "$@" && export PATH="$@:$PATH"; }
 fork_muted() { "$@" >/dev/null 2>&1 & }
-source_ifexists() { [ -s "$1" ] && source "$1"; }
-ensure_dir() { [ ! -d "$1" ] || mkdir -p "$1"; }
+source_ifexists() { test -s "$@" && source "$@"; }
+ensure_dir() { [ ! -d "$@" ] || mkdir -p "$@"; }
 
 # env vars
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # path additions
 prepend_path "/snap/bin"
-prepend_path "~/.local/bin"
-prepend_path "~/.conf_files/scripts"
-prepend_path "~/.dotnet/tools"
-prepend_path "~/.local/opt/flutter_sdk/bin"
-prepend_path "~/.local/opt/dotnet"
+prepend_path "$HOME/.local/bin"
+prepend_path "$HOME/.conf_files/scripts"
+prepend_path "$HOME/.dotnet/tools"
+prepend_path "$HOME/.local/opt/flutter_sdk/bin"
+prepend_path "$HOME/.local/opt/dotnet"
 
 # completions
 source_ifexists "/usr/share/bash-completion/bash_completion"
