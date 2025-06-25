@@ -21,7 +21,7 @@ prepend_path "/snap/bin"
 prepend_path "~/.local/bin"
 prepend_path "~/.conf_files/scripts"
 prepend_path "~/.dotnet/tools"
-prepend_path "~/.local/opt/flutter_sdk"
+prepend_path "~/.local/opt/flutter_sdk/bin"
 prepend_path "~/.local/opt/dotnet"
 
 # completions
