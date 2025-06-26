@@ -15,6 +15,7 @@ ensure_dir() { [ ! -d "$@" ] || mkdir -p "$@"; }
 
 # env vars
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+cmd_exists chromium && export CHROME_EXECUTABLE=$(which chromium)
 
 # path additions
 prepend_path "/snap/bin"
