@@ -67,6 +67,13 @@ _brew_provides() {
     esac
 }
 
+# brew completions
+if [ -d /home/linuxbrew/.linuxbrew/etc/bash_completion.d ]; then
+    for completion_file in /home/linuxbrew/.linuxbrew/etc/bash_completion.d/*; do
+        source "$completion_file"
+    done
+fi
+
 # node
 if ! _brew_provides node; then
     # try to use nvm
