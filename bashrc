@@ -95,7 +95,7 @@ if ! _brew_provides node; then
 fi
 
 # pnpm
-if ! _brew_provides pnpm && [ -d "$HOME/.local/opt/pnpm" ]; then
+if [ -d "$HOME/.local/opt/pnpm" ]; then
     export PNPM_HOME="$HOME/.local/opt/pnpm"
     case ":$PATH:" in
         *":$PNPM_HOME:"*) ;;
