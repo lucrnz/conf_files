@@ -75,21 +75,19 @@ if [ -d /home/linuxbrew/.linuxbrew/etc/bash_completion.d ]; then
 fi
 
 # node
-if ! _brew_provides node; then
-    # try to use nvm
-    if [ -f "$HOME/.nvm/nvm.sh" ]; then
-        export NVM_DIR="$HOME/.nvm"
-        . "$NVM_DIR/nvm.sh"
-        source_ifexists "$NVM_DIR/bash_completion"
-    else
-        if cmd_exists "node" && cmd_exists "npm"; then
-            npm_path=$(command -v npm)
-            if [[ "$npm_path" == "/usr/bin/npm" || "$npm_path" == "/usr/sbin/npm" ]]; then
-                export NPM_CONFIG_PREFIX="$HOME/.npm/packages"
-                ensure_dir "$NPM_CONFIG_PREFIX/bin"
-                prepend_path "$NPM_CONFIG_PREFIX/bin"
-                export NODE_PATH="$NPM_CONFIG_PREFIX/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
-            fi
+# try to use nvm
+if [ -f "$HOME/.nvm/nvm.sh" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    . "$NVM_DIR/nvm.sh"
+    source_ifexists "$NVM_DIR/bash_completion"
+else
+    if cmd_exists "node" && cmd_exists "npm"; then
+        npm_path=$(command -v npm)
+        if [[ "$npm_path" == "/usr/bin/npm" || "$npm_path" == "/usr/sbin/npm" ]]; then
+            export NPM_CONFIG_PREFIX="$HOME/.npm/packages"
+            ensure_dir "$NPM_CONFIG_PREFIX/bin"
+            prepend_path "$NPM_CONFIG_PREFIX/bin"
+            export NODE_PATH="$NPM_CONFIG_PREFIX/lib/node_modules${NODE_PATH:+:$NODE_PATH}"
         fi
     fi
 fi
@@ -97,10 +95,7 @@ fi
 # pnpm
 if [ -d "$HOME/.local/opt/pnpm" ]; then
     export PNPM_HOME="$HOME/.local/opt/pnpm"
-    case ":$PATH:" in
-        *":$PNPM_HOME:"*) ;;
-        *) export PATH="$PNPM_HOME:$PATH" ;;
-    esac
+    prepend_path "$PNPM_HOME"
 fi
 
 # bun
