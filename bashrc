@@ -1,4 +1,4 @@
-# lucdev's ~/.bashrc - https://git.lucdev.net/lucdev/conf_files
+# lucdev's ~/.bashrc - https://github.com/lucrnz/conf_files
 
 [[ $- != *i* ]] && return
 HISTSIZE=1000
@@ -119,6 +119,13 @@ source_ifexists "$HOME/.cargo/env"
 # podman
 if cmd_exists podman && cmd_exists docker-compose; then
     export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+fi
+
+# python (pyenv)
+if [ -d "$HOME/.pyenv" ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    prepend_path "$PYENV_ROOT/bin"
+    eval "$(pyenv init - bash)"
 fi
 
 # sdkman
