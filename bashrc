@@ -93,7 +93,12 @@ else
 fi
 
 # pnpm
-if [ -d "$HOME/.local/opt/pnpm" ]; then
+if [ -d "$HOME/Library/pnpm" ]; then
+    # macOS
+    export PNPM_HOME="$HOME/Library/pnpm"
+    prepend_path "$PNPM_HOME"
+elif [ -d "$HOME/.local/opt/pnpm" ]; then
+    # Linux/WSL
     export PNPM_HOME="$HOME/.local/opt/pnpm"
     prepend_path "$PNPM_HOME"
 fi
