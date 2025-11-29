@@ -1,6 +1,6 @@
 [user]
 	email = me@lucdev.net
-	name = lucdev
+	name = Luciano Hillcoat
 	signingkey = /home/lucdev/.ssh/id_ed25519.pub
 [init]
 	defaultBranch = main
@@ -14,3 +14,6 @@
 	signoff = true
 [gpg]
 	format = ssh
+
+[includeIf "hasconfig:remote.*.url:git@*.teachx.ai:*/**"]
+        path = ~/.gitconfig-work
