@@ -19,3 +19,5 @@ mono_scripts/bin/*
 # GCC Script System
 cc_scripts/bin/*
 
+# macOS
+.DS_Store
