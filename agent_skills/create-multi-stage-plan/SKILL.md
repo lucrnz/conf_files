@@ -19,26 +19,32 @@ Do not write plan files while any approach is still multi-option.
 
 Split the work into atomic stages. Order by **dependency first**, then **impact** among independent stages. Stage number is execution order.
 
-## 3. Write stage files
+## 3. Write plan directory and stage files
 
-Create `docs/plans/` if it does not exist.
+Create `docs/plans/` if it does not exist. Always create a **new** plan (do not append stages to an existing plan directory).
 
-Path (flat): docs/plans/{planNNN}-{YYYY-MM-DD}-{plan-slug}_{stageNN}-{stage-slug}.md
+Plan directory and stage paths:
+
+```
+docs/plans/{planNNN}-{YYYY-MM-DD}-{plan-slug}-pending/{stageNN}-{stage-slug}.md
+```
 
 Examples:
 
-docs/plans/003-2026-08-12-checkout-rewrite_01-extract-pricing.md
-docs/plans/003-2026-08-12-checkout-rewrite_02-swap-payment-adapter.md
+```
+docs/plans/003-2026-08-12-checkout-rewrite-pending/01-extract-pricing.md
+docs/plans/003-2026-08-12-checkout-rewrite-pending/02-swap-payment-adapter.md
+```
 
 ### Rules
 
-- `{planNNN}`: 3-digit, zero-padded (`001`, `002`, …). New plan id = max existing `planNNN` under `docs/plans/` + 1 (or `001` if none).
-- `{YYYY-MM-DD}`: today's date when writing (use the environment date; do not ask the user). Same date on every stage file of this plan.
+- `{planNNN}`: 3-digit, zero-padded (`001`, `002`, …). New plan id = max `planNNN` already present on plan directories under `docs/plans/` (both `*-pending` and `*-done`) + 1, or `001` if none.
+- `{YYYY-MM-DD}`: today's date when writing (use the environment date; do not ask the user).
 - `{plan-slug}` / `{stage-slug}`: short kebab-case.
 - `{stageNN}`: 2-digit, zero-padded (`01`, `02`, …). Stages of one plan start at `01` and increase in execution order.
-- All stages of one plan share the same `{planNNN}-{YYYY-MM-DD}-{plan-slug}` prefix.
+- New plan directories always end in `-pending`. Write only stage files (no plan-level overview/README).
 
-**Each file** must include these headings in this order (optional extra sections only after them):
+**Each stage file** must include these headings in this order (optional extra sections only after them):
 
 ```markdown
 # Stage {stageNN}: {title}
@@ -53,7 +59,7 @@ pending
 ## Implementation
 ```
 
-- Status: `pending` - you are not implementing, just planning
+- Status: `pending` — you are not implementing, just planning
 - Description: what this stage does
 - Rationale: why this stage exists / its payoff (per-stage, not a copy of the whole-plan story).
 - Implementation: how to do it. Keep judgment flexible; be concrete enough to execute later.
@@ -63,4 +69,3 @@ pending
 Do not implement code or otherwise execute the plan.
 
 Summarize: list each stage path written with a one-line description, then stop.
-
