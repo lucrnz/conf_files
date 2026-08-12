@@ -11,7 +11,7 @@ cmd_exists() { command -v "$@" &>/dev/null; }
 prepend_path() { test -d "$@" && export PATH="$@:$PATH"; }
 fork_muted() { "$@" >/dev/null 2>&1 & }
 source_ifexists() { test -s "$@" && source "$@"; }
-ensure_dir() { [ ! -d "$@" ] || mkdir -p "$@"; }
+ensure_dir() { [ -d "$@" ] || mkdir -p "$@"; }
 
 # env vars
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
@@ -148,7 +148,11 @@ fi
 cmd_exists ng && source <(ng completion script)
 
 # aliases
-alias ls='ls -l --color=auto'
+if ls --color=auto / >/dev/null 2>&1; then
+  alias ls='ls -l --color=auto'
+else
+  alias ls='ls -lG'
+fi
 alias grep='grep --color=auto'
 alias _fm="fork_muted"
 
