@@ -1,6 +1,6 @@
 ---
 name: thermo-nuclear-code-quality-review
-description: Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth. Use for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, or especially harsh maintainability review. Default scope is current workspace git changes; pass scope=codebase for a full-repo audit.
+description: Run an extremely strict maintainability review for abstraction quality, giant files, and spaghetti-condition growth. Use for a thermo-nuclear code quality review, thermonuclear review, deep code quality audit, or especially harsh maintainability review. Default scope is current workspace git changes; pass scope=codebase for a full-repo audit, or scope=picker / picker to interactively choose an inclusive commit range.
 disable-model-invocation: true
 ---
 
@@ -16,13 +16,15 @@ This skill accepts one argument:
 
 | Argument | Values | Default |
 | --- | --- | --- |
-| `scope` | `changes` \| `codebase` | `changes` |
+| `scope` | `changes` \| `codebase` \| `picker` | `changes` |
 
 Resolve `scope` before reviewing:
 
-1. If the user explicitly asks for a full-repo / entire-codebase / whole-application audit, use `scope=codebase`.
-2. If the user asks to review current changes, working tree, unstaged/staged diff, or does not specify scope, use `scope=changes`.
-3. When in doubt, default to `changes`.
+1. If the user passes `picker`, `picker=true`, `scope=picker`, or asks to pick/choose a commit range interactively, use `scope=picker`.
+2. If the user explicitly asks for a full-repo / entire-codebase / whole-application audit, use `scope=codebase`.
+3. If the user asks to review current changes, working tree, unstaged/staged diff, or does not specify scope, use `scope=changes`.
+4. If picker/range language is mixed with full-repo/`scope=codebase` language, **stop and ask which scope they want**. Do not guess.
+5. When in doubt, default to `changes`.
 
 Typical invocations:
 
@@ -30,6 +32,9 @@ Typical invocations:
 - `review my current changes` → `scope=changes`
 - `thermo-nuclear review scope=codebase` → `scope=codebase`
 - `thermo-nuclear codebase audit` → `scope=codebase`
+- `thermo-nuclear review scope=picker` → `scope=picker`
+- `thermo-nuclear review picker` → `scope=picker`
+- `pick a commit range for thermo-nuclear review` → `scope=picker`
 
 ## Workflow by Scope
 
@@ -52,6 +57,28 @@ Focus questions for this scope:
 - Did it push a file past 1k lines, or add spaghetti to an already busy module?
 - Is there a code-judo move visible **within or directly adjacent to this diff**?
 - Did the author stop at "move the big function" instead of deleting complexity?
+
+### `scope=picker`
+
+Use this when the user wants to interactively choose an inclusive commit range and review that range as one change set.
+
+Before reviewing:
+
+1. Load candidate commits: `git log -n 30 --format='%h %s' HEAD` (full history, not `--first-parent`), newest first. Each option label is `short hash + subject`.
+2. If there is no usable commit history, explain the problem and **stop**. Do not invent a range and do not fall back to another scope.
+3. If the working tree is dirty, warn in the preamble, then continue. Do **not** fold uncommitted work into the review surface.
+4. **Pick start S**, then **pick end E**:
+   - Use the environment's questions tool when it exists.
+   - Otherwise print the same numbered options and **stop** until the user answers. Do not guess.
+   - Q1: pick start commit S from the candidate list.
+   - Q2: pick end commit E from candidates that are S itself or descendants of S (`git merge-base --is-ancestor S E`). **No recommended default** on the end pick.
+   - `S == E` is allowed (single-commit review).
+5. Resolve the **inclusive** review range (both S and E included):
+   - If S has a parent: review `git diff S^..E` (equivalent forms fine).
+   - If S is a root commit (no parent): review from the empty tree to E so S is still included.
+6. Treat that range diff as the review surface (same spirit as a PR/diff review). When a touched file is large, read enough surrounding context, but keep findings anchored to what this range introduced or failed to fix.
+
+Standards, primary questions, tone, remedies, and approval bar are **exactly the same** as the rest of this skill. Only surface acquisition differs. Read “change set” / “this diff” in the focus questions as the selected commit range.
 
 ### `scope=codebase`
 
@@ -82,6 +109,7 @@ Start from this baseline, then apply the scope workflow above:
 > Be extremely thorough and rigorous. Measure twice, cut once.
 
 For `scope=changes`, interpret "the selected review scope" as the current workspace git changes.
+For `scope=picker`, interpret it as the selected inclusive commit range.
 For `scope=codebase`, interpret it as the entire application codebase.
 
 ## Non-Negotiable Additional Standards
@@ -217,9 +245,15 @@ Good phrases:
 
 ## Output Expectations
 
-Start the review by stating the resolved scope: `scope=changes` or `scope=codebase`.
+Start the review by stating the resolved scope: `scope=changes`, `scope=picker`, or `scope=codebase`.
 
 For `scope=changes`, also list the files in the review surface from `git status` and note whether each file was inspected via diff, full read, or both.
+
+For `scope=picker`, also state:
+- resolved start S and end E (short hashes + subjects)
+- the effective git range used (including the root-start special case when applicable)
+- any dirty-worktree warning
+- the files from the range diff, and whether each was inspected via diff, full read, or both
 
 Prioritize findings in this order:
 
@@ -235,6 +269,7 @@ Do not flood the review with low-value nits if there are larger structural issue
 Prefer a smaller number of high-conviction comments over a long list of cosmetic notes.
 
 For `scope=changes`, keep feedback actionable against the current workspace edits.
+For `scope=picker`, keep feedback actionable against the selected commit range.
 For `scope=codebase`, it is acceptable to recommend follow-up decomposition work beyond the current diff.
 
 ## Approval Bar
