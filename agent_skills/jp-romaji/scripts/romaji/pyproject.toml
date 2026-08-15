@@ -1,0 +1,24 @@
+[project]
+name = "romaji"
+version = "0.1.0"
+description = "Mechanical Japanese→romaji votes (pykakasi and cutlet)"
+requires-python = ">=3.11"
+dependencies = [
+    "cutlet>=0.5.2",
+    "fugashi>=1.5.2",
+    "jaconv>=0.5.0",
+    "pykakasi>=2.3.0",
+    "unidic-lite>=1.0.8",
+]
+
+[project.scripts]
+romaji = "romaji.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]

@@ -1,0 +1,3 @@
+interface:
+  display_name: "JP Romaji"
+  short_description: "Japanese text to speakable romaji"
