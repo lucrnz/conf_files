@@ -21,7 +21,7 @@ Split the work into atomic stages. Order by **dependency first**, then **impact*
 
 ## 3. Write plan directory
 
-Create `docs/plans/` if it does not exist. Always create a **new** plan (do not append stages to an existing plan directory).
+Create `docs/plans/` if missing and always start a **new** plan directory (do not append).
 
 ```
 docs/plans/{YYYY-MM-DD}-{id}-{plan-slug}-pending/
@@ -30,31 +30,23 @@ docs/plans/{YYYY-MM-DD}-{id}-{plan-slug}-pending/
   {stageNN}-{stage-slug}.md
 ```
 
-Write `context/` first (`design.md`, then any attachments), then stage files.
+Write `context/` first (`design.md`, then attachments), then stage files.
 
-Examples:
-
-```
-docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/context/design.md
-docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/01-extract-pricing.md
-docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/02-swap-payment-adapter.md
-```
+Example: `docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/context/design.md`
 
 ### Naming
 
-1. Ensure `docs/plans/` exists in the target repo.
-2. This skill lives in the directory that contains this `SKILL.md`. Follow the symlink if you reached it via `~/.agents/skills/create-multi-stage-plan`. Resolve that directory, then:
+1. Resolve this skill’s directory (the directory that contains this `SKILL.md`; follow the symlink if reached via `~/.agents/skills/create-multi-stage-plan`). Then:
 
    `uv run --project <that-dir>/scripts/plan-id plan-id mint --plans-dir docs/plans --slug {plan-slug}`
 
    Never invoke with a cwd-relative `create-multi-stage-plan/scripts/plan-id` path from the target repo. `uv` is required.
-3. Use the single stdout line as the directory basename. Create that directory. Then write `context/` and stages as below.
-4. If mint exits non-zero, stop and report stderr. Do not pick an id by hand. Do not invent `{id}` and do not derive it by scanning sibling prefixes.
+2. Use the single stdout line as the directory basename. Create that directory.
+3. If mint exits non-zero, stop and report stderr. Do not pick an id by hand. Do not invent `{id}` and do not derive it by scanning sibling prefixes.
 
 - `{YYYY-MM-DD}` and `{id}` come from the mint CLI. Do not ask the user for a date. Do not pass `--date` on the normal path.
 - `{plan-slug}` / `{stage-slug}`: short kebab-case. The CLI rejects any other slug.
 - `{stageNN}`: 2-digit, zero-padded (`01`, `02`, …). Stages of one plan start at `01` and increase in execution order.
-- New plan directories always end in `-pending`.
 - Stages are `{stageNN}-{stage-slug}.md` at the plan root only. Everything else goes under `context/`.
 
 ### context/design.md
@@ -77,18 +69,15 @@ Required headings in this order:
 ## Assumptions
 ```
 
-- Goal: what this plan is for
 - Settled decisions: grilling outcomes as decisions, not a transcript
-- Design: whole-plan approach
 - Stage map: dependencies and why this order — not a file listing
-- Out of scope: whole-plan non-goals. `None` if there are none.
-- Assumptions: whole-plan things treated as true. `None` if there are none.
+- Out of scope / Assumptions: None if there are none
 
-Do not copy `design.md` sections into stages. Stages may link to `design.md` or to a `context/` attachment. Do not put Implementation steps, file lists, or Acceptance in `design.md`.
+Do not copy `design.md` sections into stages. Stages may link to `design.md` or a `context/` attachment. Do not put Implementation steps, file lists, or Acceptance in `design.md`.
 
 If a decision must live past this plan, add a stage that writes it to the project's normal docs/ADRs. Do not treat `design.md` as living documentation.
 
-Optional attachments under `context/` only when they would bloat `design.md`. Every attachment **must** be linked from `design.md`.
+Attachments under `context/` only when they would bloat `design.md`; every attachment must be linked from `design.md`.
 
 ### Stage files
 
@@ -120,14 +109,9 @@ pending
 ```
 
 - Status: `pending` — you are not implementing, just planning
-- Description: what this stage does
 - Rationale: why this stage exists / its payoff (per-stage, not the whole-plan story)
-- Invariants: what must still be true after the stage. `None` if none.
-- Risks: what can go wrong / what we are accepting. `None` if none.
-- Files: paths this stage will create or change. `None` if no path changes.
-- Steps: ordered actions
-- Verify: commands/tests to run
-- Acceptance: checkable conditions for done
+- Invariants / Risks: None if none
+- Files: paths this stage will create or change; None if no path changes
 
 Vague “it works” or TBD is not done planning — rewrite.
 
