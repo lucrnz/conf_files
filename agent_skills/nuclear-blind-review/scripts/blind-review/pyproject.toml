@@ -1,0 +1,25 @@
+[project]
+name = "blind-review"
+version = "0.1.0"
+description = "Build isolated review packages for nuclear-blind-review"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+blind-review = "blind_review.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "blind_review"
+module-root = "src"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
