@@ -40,7 +40,7 @@ Later stages add files beside this skill and teach the blind skill to point at i
 
 - `test -f nuclear-review/SKILL.md` and `test ! -e thermo-nuclear-code-quality-review`
 - Frontmatter `name:` is `nuclear-review`
-- `rg -n 'thermo-nuclear|thermonuclear' --glob '!docs/plans/001-2026-08-15-nuclear-blind-review-pending/**'` returns no skill references
+- `rg -n 'thermo-nuclear|thermonuclear' --glob '!docs/plans/2026-08-15-94xad9m8-nuclear-blind-review-done/**'` returns no skill references
 - `ls -la ~/.agents/skills/nuclear-review` is a symlink to this repo’s `nuclear-review/`
 
 ## Acceptance
