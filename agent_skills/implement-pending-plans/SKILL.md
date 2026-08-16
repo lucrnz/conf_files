@@ -1,14 +1,14 @@
 ---
 name: implement-pending-plans
-description: Implement pending plan stages under docs/plans/; walk one *-pending plan in order; skip context/; Status in_progress → done/blocked; no auto git.
+description: Implement pending plan stages under docs/plans/; walk one *-pending plan in order; skip context/; Status in_progress → done/blocked; no auto git. Input: optional path, basename, field/run, stage path, or retry blocked.
 disable-model-invocation: true
 ---
 
 # Implement pending plans
 
-Input: optional plan id, stage path, or “retry blocked”; else discover under `docs/plans/`.
+Input: optional plan path, basename, field/run, stage path, or “retry blocked”; else discover under `docs/plans/`. A query matches a selectable plan if it equals the path, equals the basename, or equals a hyphen-separated field or a contiguous run of those fields in the basename (`v1stgxr8`, `checkout-rewrite`, `2026-08-16`, `2026-08-16-v1stgxr8`). Exact path or exact basename always wins. Any other query that hits more than one selectable plan asks. A query that hits none: report no match and list selectable plans.
 
-Companion to `create-multi-stage-plan`. Plans are directories under `docs/plans/` whose names end in `-pending`.
+Companion to `create-multi-stage-plan`. Plans are directories under `docs/plans/` whose names end in `-pending`. Names come from `create-multi-stage-plan`.
 
 **Stages:** markdown files under the chosen plan (including nested paths), except anything under `context/`. Do **not** assume a fixed stage filename template; order them sensibly.
 
@@ -49,9 +49,9 @@ Unusable file (missing `## Status`, or value not one of the four): set `blocked`
 3. A plan is selectable if it has any stage that needs work (include `blocked` only when retry applies), or if all stages are already `done` (so you can rename — see Plan directory above).
 4. Selection:
    - User named a **stage path**: that stage only (if it needs work or is a retry target); then stop after it. Do not rename the plan directory unless every stage on that plan is `done` after the run.
-   - User named a **plan** (id, slug, or path): that plan.
+   - User named a **plan**: a query matches a selectable plan if it equals the path, equals the basename, or equals a hyphen-separated field or a contiguous run of those fields in the basename (`v1stgxr8`, `checkout-rewrite`, `2026-08-16`, `2026-08-16-v1stgxr8`). Exact path or exact basename always wins. Any other query that hits more than one selectable plan asks (questions tool when available). A query that hits none: report no match and list selectable plans (basename, path, pending/in_progress counts). Do not pick.
    - Else if exactly one selectable plan with needs-work stages: use it.
-   - Else if several: ask with a list (questions tool when available); show planNNN, slug, path, and pending/in_progress counts.
+   - Else if several: ask with a list (questions tool when available); show basename, path, and pending/in_progress counts.
    - Else: report nothing to do (after any all-done renames), stop.
 
 ## 2. Walk stages

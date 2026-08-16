@@ -24,7 +24,7 @@ Split the work into atomic stages. Order by **dependency first**, then **impact*
 Create `docs/plans/` if it does not exist. Always create a **new** plan (do not append stages to an existing plan directory).
 
 ```
-docs/plans/{planNNN}-{YYYY-MM-DD}-{plan-slug}-pending/
+docs/plans/{YYYY-MM-DD}-{id}-{plan-slug}-pending/
   context/design.md
   context/{attachment}
   {stageNN}-{stage-slug}.md
@@ -35,16 +35,24 @@ Write `context/` first (`design.md`, then any attachments), then stage files.
 Examples:
 
 ```
-docs/plans/003-2026-08-12-checkout-rewrite-pending/context/design.md
-docs/plans/003-2026-08-12-checkout-rewrite-pending/01-extract-pricing.md
-docs/plans/003-2026-08-12-checkout-rewrite-pending/02-swap-payment-adapter.md
+docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/context/design.md
+docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/01-extract-pricing.md
+docs/plans/2026-08-16-v1stgxr8-checkout-rewrite-pending/02-swap-payment-adapter.md
 ```
 
 ### Naming
 
-- `{planNNN}`: 3-digit, zero-padded (`001`, `002`, …). New plan id = max `planNNN` already present on plan directories under `docs/plans/` (both `*-pending` and `*-done`) + 1, or `001` if none.
-- `{YYYY-MM-DD}`: today's date when writing (use the environment date; do not ask the user).
-- `{plan-slug}` / `{stage-slug}`: short kebab-case.
+1. Ensure `docs/plans/` exists in the target repo.
+2. This skill lives in the directory that contains this `SKILL.md`. Follow the symlink if you reached it via `~/.agents/skills/create-multi-stage-plan`. Resolve that directory, then:
+
+   `uv run --project <that-dir>/scripts/plan-id plan-id mint --plans-dir docs/plans --slug {plan-slug}`
+
+   Never invoke with a cwd-relative `create-multi-stage-plan/scripts/plan-id` path from the target repo. `uv` is required.
+3. Use the single stdout line as the directory basename. Create that directory. Then write `context/` and stages as below.
+4. If mint exits non-zero, stop and report stderr. Do not pick an id by hand. Do not invent `{id}` and do not derive it by scanning sibling prefixes.
+
+- `{YYYY-MM-DD}` and `{id}` come from the mint CLI. Do not ask the user for a date. Do not pass `--date` on the normal path.
+- `{plan-slug}` / `{stage-slug}`: short kebab-case. The CLI rejects any other slug.
 - `{stageNN}`: 2-digit, zero-padded (`01`, `02`, …). Stages of one plan start at `01` and increase in execution order.
 - New plan directories always end in `-pending`.
 - Stages are `{stageNN}-{stage-slug}.md` at the plan root only. Everything else goes under `context/`.
