@@ -13,3 +13,15 @@ Renamed thermo-nuclear to nuclear-review and split its standards into a code bar
 ```bash
 git show 3a486df9b87d8e3f0f769f4061523621b3a231ee
 ```
+
+## 2026-08-16-6dd9208t-lossless-skill-densify-done
+
+**Title:** Lossless densify of plan-skill prompts
+
+**Commit:** `0ddffd04020540bc7527bcd809614b716dce032d`
+
+Cut tokens from create-multi-stage-plan and implement-pending-plans without changing mint, picker, archive, or status behavior. Open the diff to see which sentences were restatement versus load-bearing.
+
+```bash
+git show 0ddffd04020540bc7527bcd809614b716dce032d
+```
