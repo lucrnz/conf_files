@@ -1,6 +1,6 @@
 ---
 name: archive-done-plans
-description: Git-rm a done docs/plans/*-done directory and index it in ARCHIVED.md. Input: path, basename, or field/run; else pick. Use when the user runs /archive-done-plans.
+description: Git-rm done docs/plans/*-done directories and index them in ARCHIVED.md. Input: path, basename, or field/run; else multi-select. Use when the user runs /archive-done-plans.
 disable-model-invocation: true
 ---
 
@@ -18,15 +18,19 @@ If `docs/plans/ARCHIVED.md` exists, it must be tracked and clean before a run th
 
 ## Discover and select
 
-When you list selectable plans, show basename and path. One plan per run.
+When you list selectable plans, show basename and path.
 
 1. List `*-done` children of `docs/plans/`.
 2. Drop ineligible directories (Eligible).
 3. Selection:
-   - Named **plan**: implement-pending-plans’ named-plan match keys against this selectable set. Exact path or exact basename always wins. Several hits → ask (questions tool when available). None → report no match and list selectable; do not pick.
+   - Named **plan**: implement-pending-plans’ named-plan match keys against this selectable set. Exact path or exact basename always wins (that one plan; no ask). Several hits → ask over **those hits**. None → report no match and list selectable; do not pick.
    - Else one selectable → use it.
-   - Several → ask (questions tool when available).
+   - Several → ask over **all selectable**.
    - None → stop.
+
+Ask (when Selection says ask): questions tool, `multi_select`. Option 1 is **Archive all** — the whole listed set (the set the ask is over), not a directory. Then one option per listed plan (basename and path). Empty or declined picker → stop. If Archive all is among the ticks, the selected set is the whole listed set. Otherwise the selected set is the ticked plans.
+
+After a selected set exists: sort it by basename. For each plan in that order: Recap, Commit 1, Commit 2. If Commit 2 fails: report that plan’s commit-1 SHA, do not `git reset`, do not start later selected plans, then Summarize what finished and stop.
 
 ## Recap
 
@@ -74,4 +78,4 @@ Stage only `docs/plans/ARCHIVED.md`. Subject from Sniff (`index archived plan {s
 
 ## Summarize
 
-Basename, both subjects, the SHA, the `git show` command, and whether `ARCHIVED.md` was created or appended. Stop.
+For each plan this run archived, or whose rm committed before a failed index: basename, both subjects, the SHA, the `git show` command, and whether `ARCHIVED.md` was created or appended. Stop.
