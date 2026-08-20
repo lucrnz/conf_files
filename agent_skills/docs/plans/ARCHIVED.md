@@ -49,3 +49,15 @@ Changed archive-done-plans so a picker ask is multi-select with Archive all firs
 ```bash
 git show cffb23e25af2a020fd9329b103d450bcc545c623
 ```
+
+## 2026-08-20-6z75bga5-archive-done-plans-done
+
+**Title:** Archive done plans
+
+**Commit:** `9b87703b3c2e352debf394a504c0be2c2b019d7b`
+
+Added the archive-done-plans skill: git-rm a finished *-done plan directory and index it in ARCHIVED.md so agents can recover the tree with git show. Open the diff for the two-commit SHA rule and the index entry format.
+
+```bash
+git show 9b87703b3c2e352debf394a504c0be2c2b019d7b
+```
