@@ -37,3 +37,15 @@ Replaced the shared incrementing plan-directory counter with a minted date-id-sl
 ```bash
 git show 3d48fb58a5389c304b1bd7b53ff393e8dc370fa0
 ```
+
+## 2026-08-20-2fpurujv-archive-done-multi-select-done
+
+**Title:** Multi-select for archive-done-plans
+
+**Commit:** `cffb23e25af2a020fd9329b103d450bcc545c623`
+
+Changed archive-done-plans so a picker ask is multi-select with Archive all first, then archives the selected set in basename order. Open the diff for the Archive-all-wins rule and the stop-the-batch-on-index-failure contract.
+
+```bash
+git show cffb23e25af2a020fd9329b103d450bcc545c623
+```
