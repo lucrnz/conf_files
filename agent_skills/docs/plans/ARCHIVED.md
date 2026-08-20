@@ -25,3 +25,15 @@ Cut tokens from create-multi-stage-plan and implement-pending-plans without chan
 ```bash
 git show 0ddffd04020540bc7527bcd809614b716dce032d
 ```
+
+## 2026-08-16-hh7vjr2b-collision-free-plan-ids-done
+
+**Title:** Collision-free plan directory ids
+
+**Commit:** `3d48fb58a5389c304b1bd7b53ff393e8dc370fa0`
+
+Replaced the shared incrementing plan-directory counter with a minted date-id-slug basename and a picker that matches path, basename, or field. Open the diff for the mint uniqueness rule and the implement selection sentence the skills still point at.
+
+```bash
+git show 3d48fb58a5389c304b1bd7b53ff393e8dc370fa0
+```
