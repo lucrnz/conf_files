@@ -54,12 +54,13 @@ Do not auto-commit, branch, or open PRs.
 For each stage that needs work:
 
 1. Set Status to `in_progress`.
-2. Implement what the stage asks for (Description, Implementation, Acceptance, and any later sections). Not limited to code — do the work the stage describes.
-3. If you cannot finish (underspecified, missing dependency, hard failure, or `## Acceptance` present and not met): set Status to `blocked`, explain to the user, stop the plan (do not continue later stages). Leave the directory as `*-pending`.
-4. Otherwise set Status to `done` and continue.
+2. Apply this stage’s Files (see create-multi-stage-plan) to every path the stage will create or change. Path equals a file entry → continue. Path is under a prefix → append that exact path to this stage’s Files, continue, and name the added paths in Summarize. Creating a parent directory of a listed or appended file is not a new path. Otherwise set Status to `blocked`, explain that the path is outside this stage’s Files, stop later stages, leave `*-pending`.
+3. Implement what the stage asks for (Description, Implementation, Acceptance, and any later sections). Not limited to code — do the work the stage describes.
+4. If you cannot finish (underspecified, missing dependency, hard failure, or `## Acceptance` present and not met): set Status to `blocked`, explain to the user, stop the plan (do not continue later stages). Leave the directory as `*-pending`.
+5. Otherwise set Status to `done` and continue.
 
 After the walk (or a named stage): if every stage is `done`, archive (Plan directory).
 
 ## Summarize
 
-List stages completed this run, any blocked stage and why, any remaining needs-work stages on that plan, and whether the plan directory was renamed to `*-done`. Stop.
+List stages completed this run, any blocked stage and why, any remaining needs-work stages on that plan, paths appended to Files, and whether the plan directory was renamed to `*-done`. Stop.
