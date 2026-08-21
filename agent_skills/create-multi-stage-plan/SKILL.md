@@ -10,7 +10,7 @@ Input: the proposed changes in the current conversation, plus any docs, diffs, o
 
 ## 1. Resolve decisions
 
-Do not write plan files while any approach is still multi-option.
+Do not write plan files while any approach is still multi-option. A broken Files contract is still multi-option (see Files).
 
 - Prefer the `grilling` skill until decisions are settled and the user confirms shared understanding.
 - If grilling is not available, use the question tool; put a recommended option first on every multi-choice question.
@@ -111,9 +111,9 @@ pending
 - Status: `pending` — you are not implementing, just planning
 - Rationale: why this stage exists / its payoff (per-stage, not the whole-plan story)
 - Invariants / Risks: None if none
-- Files: paths this stage will create or change; None if no path changes
+- Files: exact repo-relative file paths this stage will create or change, and directory prefixes. A prefix ends with `/` and has at least one path segment; empty, `.`, and `/` are illegal. A path matches a file entry by exact equality; it is under a prefix iff it starts with that prefix. Every repo path named in that stage’s Steps must appear as an exact Files entry. `None` only when Steps name no path. A prefix authorizes later growth; it does not replace an exact entry for a path Steps already name.
 
-Vague “it works” or TBD is not done planning — rewrite.
+Vague “it works” or TBD, empty Files, or `None` when Steps name a path, is not done planning — rewrite.
 
 ## 4. Stop
 
