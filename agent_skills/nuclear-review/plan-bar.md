@@ -52,9 +52,9 @@ Also apply [code-bar.md](code-bar.md) to the implementation this plan would prod
 
 Apply only when the file is a stage under `docs/plans/` with the usual headings.
 
-- **Rule:** `Status`, `Invariants`, and `Acceptance` are present and usable (`pending` / `in_progress` / `blocked` / `done`; invariants that can stay true; acceptance that can be checked).
-- **Flag:** Missing `## Status` or a value that is not one of the four; empty or “it works” Acceptance; Invariants that restated the goal.
-- **Remedy:** Fix the headings so `implement-pending-plans` can walk the file.
+- **Rule:** `Status`, `Invariants`, and `Acceptance` are present and usable (`pending` / `in_progress` / `blocked` / `done`; invariants that can stay true; acceptance that can be checked). The stage’s Files contract holds (see create-multi-stage-plan).
+- **Flag:** Missing `## Status` or a value that is not one of the four; empty or “it works” Acceptance; Invariants that restated the goal; Steps name a path that is not an exact Files entry; empty/`None` Files while Steps name a path; illegal Files prefix.
+- **Remedy:** Fix the headings so `implement-pending-plans` can walk the file. Fix Files to match create-multi-stage-plan.
 
 ## Primary Review Questions
 
@@ -68,21 +68,20 @@ For every plan directory or stage in scope:
 6. Does this fit the current tree (layer, helpers, file size)?
 7. Is the plan laundering a bad implementation?
 8. What would [code-bar.md](code-bar.md) say about the code this plan would produce?
-9. If this is a create-multi-stage-plan stage: are Status / Invariants / Acceptance usable?
+9. If this is a create-multi-stage-plan stage: are Status / Invariants / Acceptance usable, and does Files hold?
 
 ## Approval Bar
 
-Do not approve a plan because it is thorough or well-formatted. Approve only when no theme above fires and the would-be implementation would pass [code-bar.md](code-bar.md) (or the misses are explicit, justified exceptions).
+Do not approve a plan because it is thorough or well-formatted. Approve only when themes 1–7 do not fire and the would-be implementation would pass [code-bar.md](code-bar.md) (or the misses are explicit, justified exceptions). Theme 0 is asked; it is not a solo refuse.
 
 **Do not approve** (unless clearly justified) when the plan:
 
-- preserves a visible simpler design
 - leaves a decision unset that a later stage needs
 - has a non-atomic stage or wrong stage order
 - has uncheckable acceptance
 - smuggles scope or hides assumptions
 - ignores the current tree in a way that will produce a code-bar failure
 - plans spaghetti, wrappers, or helper duplication
-- is a create-multi-stage-plan stage with unusable Status / Invariants / Acceptance
+- is a create-multi-stage-plan stage with unusable Status / Invariants / Acceptance or a broken Files contract
 
 If any apply, leave explicit actionable feedback and push for the smaller plan.
