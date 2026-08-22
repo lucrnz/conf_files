@@ -1,0 +1,17 @@
+[project]
+name = "notify"
+version = "0.1.0"
+description = "Send one desktop notification"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+notify = "notify.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "notify"
+module-root = "src"
