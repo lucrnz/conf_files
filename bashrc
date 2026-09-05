@@ -20,7 +20,7 @@ cmd_exists chromium && export CHROME_EXECUTABLE=$(which chromium)
 # path additions
 prepend_path "/snap/bin"
 prepend_path "$HOME/.local/bin"
-prepend_path "$HOME/.conf_files/scripts"
+prepend_path "$HOME/.conf_files/scripts/bin"
 prepend_path "$HOME/.dotnet/tools"
 prepend_path "$HOME/.local/opt/flutter_sdk/bin"
 prepend_path "$HOME/.local/opt/dotnet"
