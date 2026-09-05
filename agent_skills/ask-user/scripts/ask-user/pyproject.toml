@@ -1,0 +1,27 @@
+[project]
+name = "ask-user"
+version = "0.1.0"
+description = "Ask multiple-choice questions in a desktop window"
+requires-python = ">=3.10,<3.15"
+dependencies = [
+    "PySide6",
+]
+
+[project.scripts]
+ask-user = "ask_user.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "ask_user"
+module-root = "src"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
