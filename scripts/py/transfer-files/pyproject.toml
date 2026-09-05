@@ -1,0 +1,17 @@
+[project]
+name = "transfer-files"
+version = "0.1.0"
+description = "Copy files matching extensions into a destination"
+requires-python = ">=3.11,<3.15"
+dependencies = []
+
+[project.scripts]
+transfer-files = "transfer_files.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "transfer_files"
+module-root = "src"

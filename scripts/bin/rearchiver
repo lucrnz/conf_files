@@ -1,0 +1,2 @@
+#!/bin/sh
+exec uv run --project "$HOME/.conf_files/scripts/py/rearchiver" rearchiver "$@"
