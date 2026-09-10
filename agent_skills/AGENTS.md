@@ -2,6 +2,10 @@
 
 This file is for agents working in this repo. `REPO` is the directory that contains this file.
 
+## Author a skill
+
+When writing or editing a skill, it should be compatible with Linux and macOS unless it cannot make sense on both.
+
 ## Install a skill
 
 If the user already names a target (`for opencode`, `update my opencode skills`, agents/symlink, etc.), use that target. Do not ask again.
