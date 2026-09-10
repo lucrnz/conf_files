@@ -1,7 +1,7 @@
 [project]
 name = "ask-user"
 version = "0.1.0"
-description = "Ask multiple-choice questions in a desktop window"
+description = "Ask multiple-choice questions in a desktop window or a tunneled page."
 requires-python = ">=3.10,<3.15"
 dependencies = [
     "PySide6",

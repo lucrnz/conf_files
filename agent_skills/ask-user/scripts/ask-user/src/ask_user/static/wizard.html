@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ask-user</title>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/7.css@0.21.1/dist/7.css"
+    integrity="sha384-WN2QoZVHe/0w3aOmuNlv18gZn4NKrLXxgsUtsLAXPV1zCE/49AFfl07gQ2knrObx"
+    crossorigin="anonymous">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #6db3f2 0%, #1a6fb5 55%, #0b4f86 100%);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+    .window {
+      width: min(560px, calc(100vw - 32px));
+      max-height: calc(100vh - 32px);
+    }
+    .window-body {
+      min-height: 280px;
+    }
+    #page {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #prompt {
+      margin: 0 0 4px;
+      white-space: pre-wrap;
+    }
+    .option-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .option-row label {
+      margin: 0;
+    }
+    .recommended {
+      font-size: 11px;
+      color: #003399;
+    }
+    .description {
+      margin: 0 0 6px 22px;
+      color: #333;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+    .other-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .other-row input[type="text"] {
+      flex: 1;
+    }
+    #error {
+      color: #9b1b1b;
+      margin: 4px 0 0;
+    }
+    #error[hidden] {
+      display: none;
+    }
+    .field-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    .status-bar-field {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="window glass active">
+    <div class="title-bar">
+      <div class="title-bar-text">ask-user</div>
+      <div class="title-bar-controls">
+        <button id="title-close" aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space">
+      <div id="page"></div>
+      <p id="error" hidden>This question needs an answer.</p>
+      <section class="field-row">
+        <button id="back">Back</button>
+        <button id="next">Next</button>
+        <button id="finish" class="default">Finish</button>
+        <button id="cancel">Cancel</button>
+      </section>
+    </div>
+    <div class="status-bar">
+      <p class="status-bar-field" id="progress">Question 1 of 1</p>
+    </div>
+  </div>
+  <script type="application/json" id="ask-user-payload">__ASK_USER_PAYLOAD__</script>
+  <script type="application/json" id="ask-user-token">__ASK_USER_TOKEN__</script>
+  <script>
+    (function () {
+      var payload = JSON.parse(document.getElementById("ask-user-payload").textContent);
+      var token = JSON.parse(document.getElementById("ask-user-token").textContent);
+      var prefix = "/t/" + token;
+      var questions = payload.questions;
+      var index = 0;
+      var states = questions.map(function () {
+        return { selected: [], other: null };
+      });
+
+      var pageEl = document.getElementById("page");
+      var errorEl = document.getElementById("error");
+      var progressEl = document.getElementById("progress");
+      var backBtn = document.getElementById("back");
+      var nextBtn = document.getElementById("next");
+      var finishBtn = document.getElementById("finish");
+      var cancelBtn = document.getElementById("cancel");
+
+      function pageComplete(state) {
+        if (state.selected.length) return true;
+        return !!(state.other && String(state.other).trim());
+      }
+
+      function firstIncomplete() {
+        for (var i = 0; i < states.length; i++) {
+          if (!pageComplete(states[i])) return i;
+        }
+        return null;
+      }
+
+      function readCurrent() {
+        var q = questions[index];
+        var selected = [];
+        var inputs = pageEl.querySelectorAll("input[data-option]");
+        for (var i = 0; i < inputs.length; i++) {
+          if (inputs[i].checked) selected.push(inputs[i].getAttribute("data-option"));
+        }
+        var otherOn = pageEl.querySelector("input[data-other]").checked;
+        var otherText = pageEl.querySelector("input[data-other-text]").value;
+        var other = null;
+        if (otherOn && otherText.trim()) other = otherText.trim();
+        states[index] = { selected: selected, other: other };
+      }
+
+      function hideError() {
+        errorEl.hidden = true;
+      }
+
+      function showError() {
+        errorEl.hidden = false;
+      }
+
+      function post(path, body) {
+        return fetch(prefix + path, {
+          method: "POST",
+          headers: body ? { "Content-Type": "application/json" } : {},
+          body: body ? JSON.stringify(body) : ""
+        });
+      }
+
+      function encodeAnswers() {
+        return {
+          answers: questions.map(function (q, i) {
+            return {
+              question: q.question,
+              selected: states[i].selected.slice(),
+              other: states[i].other
+            };
+          })
+        };
+      }
+
+      function addText(el, text) {
+        el.appendChild(document.createTextNode(text == null ? "" : String(text)));
+      }
+
+      function paint() {
+        var q = questions[index];
+        var state = states[index];
+        var last = index === questions.length - 1;
+        pageEl.replaceChildren();
+
+        var prompt = document.createElement("p");
+        prompt.id = "prompt";
+        addText(prompt, q.question);
+        pageEl.appendChild(prompt);
+
+        var name = "q-" + index;
+        q.options.forEach(function (opt, optIndex) {
+          var row = document.createElement("div");
+          row.className = "option-row";
+          var input = document.createElement("input");
+          input.type = q.multi_select ? "checkbox" : "radio";
+          input.name = q.multi_select ? name + "-" + optIndex : name;
+          input.id = name + "-opt-" + optIndex;
+          input.setAttribute("data-option", opt.label);
+          if (state.selected.indexOf(opt.label) !== -1) input.checked = true;
+          input.addEventListener("change", hideError);
+          var label = document.createElement("label");
+          label.setAttribute("for", input.id);
+          addText(label, opt.label);
+          row.appendChild(input);
+          row.appendChild(label);
+          if (optIndex === 0) {
+            var badge = document.createElement("span");
+            badge.className = "recommended";
+            addText(badge, "Recommended");
+            row.appendChild(badge);
+          }
+          pageEl.appendChild(row);
+          if (opt.description) {
+            var desc = document.createElement("p");
+            desc.className = "description";
+            addText(desc, opt.description);
+            pageEl.appendChild(desc);
+          }
+        });
+
+        var otherRow = document.createElement("div");
+        otherRow.className = "other-row";
+        var otherInput = document.createElement("input");
+        otherInput.type = q.multi_select ? "checkbox" : "radio";
+        otherInput.name = q.multi_select ? name + "-other" : name;
+        otherInput.id = name + "-other";
+        otherInput.setAttribute("data-other", "1");
+        var otherOn = state.other !== null;
+        otherInput.checked = otherOn;
+        var otherLabel = document.createElement("label");
+        otherLabel.setAttribute("for", otherInput.id);
+        addText(otherLabel, "Other");
+        var otherText = document.createElement("input");
+        otherText.type = "text";
+        otherText.setAttribute("data-other-text", "1");
+        otherText.disabled = !otherOn;
+        if (state.other) otherText.value = state.other;
+        otherInput.addEventListener("change", function () {
+          otherText.disabled = !otherInput.checked;
+          if (otherInput.checked) otherText.focus();
+          hideError();
+        });
+        otherText.addEventListener("input", hideError);
+        otherRow.appendChild(otherInput);
+        otherRow.appendChild(otherLabel);
+        otherRow.appendChild(otherText);
+        pageEl.appendChild(otherRow);
+
+        progressEl.replaceChildren();
+        addText(progressEl, "Question " + (index + 1) + " of " + questions.length);
+        backBtn.hidden = index === 0;
+        nextBtn.hidden = last;
+        finishBtn.hidden = !last;
+        hideError();
+      }
+
+      function cancel() {
+        post("/cancel");
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        post("/opened");
+        paint();
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          cancel();
+        }
+      });
+
+      backBtn.addEventListener("click", function () {
+        readCurrent();
+        if (index > 0) index -= 1;
+        paint();
+      });
+
+      nextBtn.addEventListener("click", function () {
+        readCurrent();
+        if (index < questions.length - 1) index += 1;
+        paint();
+      });
+
+      finishBtn.addEventListener("click", function () {
+        readCurrent();
+        var missing = firstIncomplete();
+        if (missing !== null) {
+          index = missing;
+          paint();
+          showError();
+          return;
+        }
+        post("/submit", encodeAnswers()).then(function (res) {
+          if (!res.ok) {
+            var again = firstIncomplete();
+            if (again !== null) index = again;
+            paint();
+            showError();
+          }
+        });
+      });
+
+      cancelBtn.addEventListener("click", cancel);
+      document.getElementById("title-close").addEventListener("click", cancel);
+    })();
+  </script>
+</body>
+</html>
