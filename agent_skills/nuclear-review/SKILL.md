@@ -51,7 +51,7 @@ Interactive inclusive commit range, reviewed as one change set.
 2. No usable history → explain and **stop**. No invented range, no scope fallback.
 3. Dirty worktree → warn in preamble; **do not** include uncommitted work.
 4. Pick **start S**, then **end E**:
-   - Questions tool if available; else print numbered options and **stop** until answered. Do not guess.
+   - Ask via ask-user. Do not guess.
    - Q1: S from the candidate list.
    - Q2: E from candidates that are S or descendants of S (`git merge-base --is-ancestor S E`). **No recommended default** for E.
    - `S == E` allowed (single-commit review).

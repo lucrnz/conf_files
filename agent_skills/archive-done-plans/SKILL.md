@@ -28,7 +28,7 @@ When you list selectable plans, show basename and path.
    - Several → ask over **all selectable**.
    - None → stop.
 
-Ask (when Selection says ask): questions tool, `multi_select`. Option 1 is **Archive all** — the whole listed set (the set the ask is over), not a directory. Then one option per listed plan (basename and path). Empty or declined picker → stop. If Archive all is among the ticks, the selected set is the whole listed set. Otherwise the selected set is the ticked plans.
+Ask (when Selection says ask): ask-user, `multi_select`. Option 1 is **Archive all** — the whole listed set (the set the ask is over), not a directory. Then one option per listed plan (basename and path). Empty or declined picker → stop. If Archive all is among the ticks, the selected set is the whole listed set. Otherwise the selected set is the ticked plans.
 
 After a selected set exists: sort it by basename. For each plan in that order: Recap, Commit 1, Commit 2. If Commit 2 fails: report that plan’s commit-1 SHA, do not `git reset`, do not start later selected plans, then Summarize what finished and stop.
 

@@ -22,7 +22,7 @@ Resolve `nuclear-review` the same way (follow its symlink). Bars: `<nuclear-revi
 
 1. Resolve `scope` exactly as `nuclear-review` (`changes` default, `codebase`, `picker` with the same S/E questions). Picker and all git commands run in the real repo.
 2. `jobs --repo <real-repo> --surface <scope>` (`--range` for picker). Empty `jobs` → report and **stop**. Do not spawn.
-3. If plan jobs > 1: ask parallel vs sequential (questions tool if available). Recommended = parallel. Decline → sequential.
+3. If plan jobs > 1: ask parallel vs sequential via ask-user. Recommended = parallel. Decline → sequential.
 4. `prepare` each job. First call may omit `--parent`; later calls pass the printed `parent`. Always pass `--bar <nuclear-review>/code-bar.md`. For `kind=plan` also pass `--bar <nuclear-review>/plan-bar.md`. Record `parent` immediately.
 5. Spawn **one subagent per `jobs` line** (`subagent_type=general-purpose`, `capability_mode=read-write`, `cwd=<job_dir>`, do not set `isolation=worktree`).
    - Prompt may include: package kind, scope label, that git history is absent by design, paths **relative to cwd** (`DIFF.patch`, `FILE_LIST.txt`, `_review/`), and “write `BLIND_REVIEW.md` applying the bar file(s) in `_review/`”.

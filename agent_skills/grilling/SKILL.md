@@ -21,5 +21,5 @@ Finding _facts_ is your job, never the user's. When a frontier question needs a 
 
 The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
 
-Once you finish presenting the questions to the user, if the environment presents a questions tool, make use of it so the user can select more easily an option.
+Once you finish presenting the questions to the user, ask via ask-user so the user can select more easily an option.
 

@@ -38,9 +38,9 @@ When you list selectable plans, show basename, path, pending/in_progress counts.
 3. A plan is selectable if any stage needs work (`blocked` only when retry applies), or if all stages are `done` (so it can be archived).
 4. Selection:
    - Named **stage path**: that stage only (if it needs work or is a retry target); stop after it; archive only if every stage on that plan is then `done`.
-   - Named **plan**: A query matches a selectable plan if it equals the path, equals the basename, or equals a hyphen-separated field or a contiguous run of those fields in the basename (`v1stgxr8`, `checkout-rewrite`, `2026-08-16`, `2026-08-16-v1stgxr8`). Exact path or exact basename always wins. Any other query that hits more than one selectable plan asks (questions tool when available). A query that hits none: report no match and list selectable plans. Do not pick.
+   - Named **plan**: A query matches a selectable plan if it equals the path, equals the basename, or equals a hyphen-separated field or a contiguous run of those fields in the basename (`v1stgxr8`, `checkout-rewrite`, `2026-08-16`, `2026-08-16-v1stgxr8`). Exact path or exact basename always wins. Any other query that hits more than one selectable plan asks via ask-user. A query that hits none: report no match and list selectable plans. Do not pick.
    - Else one needs-work plan: use it.
-   - Several: ask with a list (questions tool when available).
+   - Several: ask via ask-user with a list.
    - None: nothing to do after any all-done archives; stop.
 
 ## Walk stages

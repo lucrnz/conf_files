@@ -13,7 +13,7 @@ Input: the proposed changes in the current conversation, plus any docs, diffs, o
 Do not write plan files while any approach is still multi-option. A broken Files contract is still multi-option (see Files).
 
 - Prefer the `grilling` skill until decisions are settled and the user confirms shared understanding.
-- If grilling is not available, use the question tool; put a recommended option first on every multi-choice question.
+- If grilling is not available, ask via ask-user; put a recommended option first on every multi-choice question.
 
 ## 2. Decompose
 
