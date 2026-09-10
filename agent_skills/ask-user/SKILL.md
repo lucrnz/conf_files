@@ -1,11 +1,11 @@
 ---
 name: ask-user
-description: Present multiple-choice questions (N options + Other) when no questions tool is available. Uses a desktop window locally, or a tunneled browser page over SSH. Use when you need the user to choose among options and `ask_user_question` / a questions tool is not available. Use when the user runs `/ask-user`.
+description: Present multiple-choice questions (N options + Other) in a desktop window, or a tunneled browser page over SSH. Use when you need the user to choose among options. Replaces `ask_user_question` / a questions tool; fall back to that tool only if this picker cannot open. Use when the user runs `/ask-user`.
 ---
 
 # ask-user
 
-Prefer the native questions tool when it exists. Load this skill only when it does not. Do not dual-fire.
+Always use this skill when a pick is needed. It replaces `ask_user_question` / a questions tool. Do not dual-fire.
 
 The picker is self-contained: full question text, option labels, and descriptions. Do not send an Other option; the CLI appends it. Put the recommended option first.
 
@@ -69,6 +69,10 @@ As soon as stderr contains a line starting with `ask-user: `, print the rest of 
 | 4 | picker could not be presented (no display, no tunnel, or the URL was never opened) |
 | 6 | cancelled (close / Esc / Cancel) |
 
-Exit 4 or 6: fall back to numbered options in chat. Do not retry the picker. Exit 2: report stderr, do not retry.
+Cannot-open (exit 4, or the CLI never starts: uv/Qt fail, timeout, missing skill): if a questions tool exists, use it now. Else numbered options in chat. Do not retry the picker.
+
+Exit 6: decline. Do not fall back to the questions tool. The caller keeps its decline rule.
+
+Exit 2: report stderr, do not retry.
 
 If the CLI exits non-zero: point the user at [README.md](README.md) in this skill directory.
