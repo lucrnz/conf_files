@@ -14,7 +14,7 @@ Qt needs `DISPLAY` or `WAYLAND_DISPLAY`. It picks the platform plugin (Wayland o
 
 Over SSH the CLI does not open Qt. It starts a tunneled page. The first SSH run uses `pnpx` (or `npx` if `pnpx` is missing) and will download `untun` plus `cloudflared`. The CLI accepts Cloudflare’s notice via its child environment; you do not answer a prompt.
 
-The agent prints an `ask-user: ` HTTPS URL in chat. Open that URL. Do not open `127.0.0.1` or the ephemeral loopback port.
+The agent prints an `ask-user: ` HTTPS URL in chat. Open that URL. Do not open `127.0.0.1` or the ephemeral loopback port. The printed URL is normally a `https://v.gd/…` short link to the tunneled wizard; v.gd may show a preview / continue page first. If shortening fails, the line is a long `*.trycloudflare.com` URL — open that instead.
 
 ## Smoke test
 

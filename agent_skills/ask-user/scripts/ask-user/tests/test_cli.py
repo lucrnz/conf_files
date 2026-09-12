@@ -272,6 +272,7 @@ def test_ssh_mocked_tunnel_success(monkeypatch, capsys) -> None:
     monkeypatch.setattr("ask_user.tunnel.find_runner", lambda: "/usr/bin/pnpx")
     monkeypatch.setattr("ask_user.tunnel.start_tunnel", lambda port: _FakeTunnel())
     monkeypatch.setattr("ask_user.http_wizard.HttpPicker", _FakePicker)
+    monkeypatch.setattr("ask_user.shorten.shorten", lambda url: None)
     assert cli.main([]) == cli.EXIT_OK
     captured = capsys.readouterr()
     assert captured.out == encode_answers(ANSWERS)
@@ -292,6 +293,7 @@ def test_ssh_mocked_unused_timeout(monkeypatch, capsys) -> None:
     monkeypatch.setattr("ask_user.tunnel.find_runner", lambda: "/usr/bin/pnpx")
     monkeypatch.setattr("ask_user.tunnel.start_tunnel", lambda port: _FakeTunnel())
     monkeypatch.setattr("ask_user.http_wizard.HttpPicker", _TimeoutPicker)
+    monkeypatch.setattr("ask_user.shorten.shorten", lambda url: None)
     assert cli.main([]) == cli.EXIT_NO_DISPLAY
     captured = capsys.readouterr()
     assert captured.out == ""
@@ -304,18 +306,42 @@ def test_ssh_mocked_cancel(monkeypatch, capsys) -> None:
     monkeypatch.setattr("ask_user.tunnel.find_runner", lambda: "/usr/bin/pnpx")
     monkeypatch.setattr("ask_user.tunnel.start_tunnel", lambda port: _FakeTunnel())
     monkeypatch.setattr("ask_user.http_wizard.HttpPicker", _CancelPicker)
+    monkeypatch.setattr("ask_user.shorten.shorten", lambda url: None)
     assert cli.main([]) == cli.EXIT_CANCELLED
     assert capsys.readouterr().out == ""
 
 
 def test_ssh_no_runner_does_not_bind(monkeypatch, capsys) -> None:
     _BindRecorder.bound = False
+    called = {"shorten": False}
+
+    def boom(_url: str):
+        called["shorten"] = True
+        return None
+
     monkeypatch.setenv("SSH_TTY", "/dev/ttys003")
     monkeypatch.setattr(sys, "stdin", StringIO(VALID))
     monkeypatch.setattr("ask_user.tunnel.find_runner", lambda: None)
     monkeypatch.setattr("ask_user.http_wizard.HttpPicker", _BindRecorder)
+    monkeypatch.setattr("ask_user.shorten.shorten", boom)
     assert cli.main([]) == cli.EXIT_NO_DISPLAY
     captured = capsys.readouterr()
     assert captured.out == ""
     assert "no tunnel" in captured.err
     assert _BindRecorder.bound is False
+    assert called["shorten"] is False
+
+
+def test_ssh_prints_vgd_short_url(monkeypatch, capsys) -> None:
+    monkeypatch.setenv("SSH_TTY", "/dev/ttys003")
+    monkeypatch.setattr(sys, "stdin", StringIO(VALID))
+    monkeypatch.setattr("ask_user.tunnel.find_runner", lambda: "/usr/bin/pnpx")
+    monkeypatch.setattr("ask_user.tunnel.start_tunnel", lambda port: _FakeTunnel())
+    monkeypatch.setattr("ask_user.http_wizard.HttpPicker", _FakePicker)
+    monkeypatch.setattr("ask_user.shorten.shorten", lambda url: "https://v.gd/R709K6")
+    assert cli.main([]) == cli.EXIT_OK
+    captured = capsys.readouterr()
+    assert captured.out == encode_answers(ANSWERS)
+    lines = [line for line in captured.err.splitlines() if line.startswith("ask-user: ")]
+    assert lines == ["ask-user: https://v.gd/R709K6"]
+    assert "trycloudflare.com" not in lines[0]
