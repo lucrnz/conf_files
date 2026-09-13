@@ -125,3 +125,43 @@ rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design
  delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design.md
 5e5d952a149eb813d0dac8e7d9401014fe4bc6a5
 ```
+
+## 2026-09-05-20av91yc-ask-user-done
+
+**Title:** ask-user skill
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/01-payload-contract.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/02-cli-io.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/03-wizard.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/04-skill-docs.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/design.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planning_session.md'
+[main 666828e] docs(agent_skills): archive ask-user
+ 6 files changed, 536 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/01-payload-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/02-cli-io.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/03-wizard.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/04-skill-docs.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/design.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planning_session.md
+666828eab2b49b53e04c846dfb409cd6c41798f6`
+
+Added the ask-user PySide6 wizard: stdin JSON questions, a blocking desktop picker, stdout answers, and exit 0/2/4/6. Open the diff for the payload contract, Qt-free module split, and the original fallback-only description that later plans inverted.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/01-payload-contract.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/02-cli-io.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/03-wizard.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/04-skill-docs.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/design.md'
+rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planning_session.md'
+[main 666828e] docs(agent_skills): archive ask-user
+ 6 files changed, 536 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/01-payload-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/02-cli-io.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/03-wizard.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/04-skill-docs.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/design.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planning_session.md
+666828eab2b49b53e04c846dfb409cd6c41798f6
+```
