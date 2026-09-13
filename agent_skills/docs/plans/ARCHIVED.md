@@ -237,3 +237,35 @@ rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design
  delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design.md
 9da50b2a20c8b6dc40973721de9534c7e0d0c1df
 ```
+
+## 2026-09-10-uaxdn96i-ask-user-primary-done
+
+**Title:** ask-user replaces the native questions tool
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/01-ask-user-routing.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/02-patch-consumers.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/03-write-adr.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/design.md'
+[main b6be9c0] docs(agent_skills): archive ask-user-primary
+ 4 files changed, 247 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/01-ask-user-routing.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/02-patch-consumers.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/03-write-adr.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/design.md
+b6be9c0f210fc94ae692dc44180778a3035dbd05`
+
+Made ask-user the primary picker, patched six consumer skills, and recorded the invert as ADR 0001. Open the diff for the cannot-open fallback chain and the consumer ask-via-ask-user wording.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/01-ask-user-routing.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/02-patch-consumers.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/03-write-adr.md'
+rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/design.md'
+[main b6be9c0] docs(agent_skills): archive ask-user-primary
+ 4 files changed, 247 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/01-ask-user-routing.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/02-patch-consumers.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/03-write-adr.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/design.md
+b6be9c0f210fc94ae692dc44180778a3035dbd05
+```
