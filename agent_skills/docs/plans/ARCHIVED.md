@@ -269,3 +269,31 @@ rm 'agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/de
  delete mode 100644 agent_skills/docs/plans/2026-09-10-uaxdn96i-ask-user-primary-done/context/design.md
 b6be9c0f210fc94ae692dc44180778a3035dbd05
 ```
+
+## 2026-09-12-04fwnvsr-shorten-url-done
+
+**Title:** Shorten-url skill
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/01-cli.md'
+rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/02-skill.md'
+rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/context/design.md'
+[main cacbdad] docs(agent_skills): archive shorten-url
+ 3 files changed, 227 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/01-cli.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/02-skill.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/context/design.md
+cacbdad9a3a72ae7a5c1d6a6dbc06609697d452f`
+
+Added a shorten-url skill and uv CLI that POSTs one --url to v.gd, pass-throughs existing v.gd links, and fails loud with prefixed stderr logs. Open the diff for the retry/rate-limit wait and the agent invoke/timeout contract.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/01-cli.md'
+rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/02-skill.md'
+rm 'agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/context/design.md'
+[main cacbdad] docs(agent_skills): archive shorten-url
+ 3 files changed, 227 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/01-cli.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/02-skill.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-12-04fwnvsr-shorten-url-done/context/design.md
+cacbdad9a3a72ae7a5c1d6a6dbc06609697d452f
+```
