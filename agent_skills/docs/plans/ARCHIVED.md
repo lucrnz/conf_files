@@ -61,3 +61,35 @@ Added the archive-done-plans skill: git-rm a finished *-done plan directory and 
 ```bash
 git show 9b87703b3c2e352debf394a504c0be2c2b019d7b
 ```
+
+## 2026-08-21-9iuxnqqu-construction-contracts-done
+
+**Title:** Construction contracts
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/01-write-time-contract.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/02-review-time-lint.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/03-implement-files-contract.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/context/design.md'
+[main 45def2e] docs(agent_skills): archive construction-contracts
+ 4 files changed, 196 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/01-write-time-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/02-review-time-lint.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/03-implement-files-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/context/design.md
+45def2ebf6af9d61190622b30d2ba71f58006c1b`
+
+Made Files a closed path contract in create-multi-stage-plan, so write-time refuses a Steps/Files mismatch, plan-bar fails a broken list, and implement cannot invent a path outside this stage's Files. Open the diff for the prefix-vs-exact rule and the implement append-or-block sentence the three skills still follow.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/01-write-time-contract.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/02-review-time-lint.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/03-implement-files-contract.md'
+rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/context/design.md'
+[main 45def2e] docs(agent_skills): archive construction-contracts
+ 4 files changed, 196 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/01-write-time-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/02-review-time-lint.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/03-implement-files-contract.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/context/design.md
+45def2ebf6af9d61190622b30d2ba71f58006c1b
+```
