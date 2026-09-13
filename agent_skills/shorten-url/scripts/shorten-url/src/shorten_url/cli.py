@@ -1,4 +1,4 @@
-"""argparse CLI: shorten one URL with v.gd."""
+"""argparse CLI: shorten one URL with v.gd, then TinyURL."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ EXIT_FAIL = 4
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         prog="shorten-url",
-        description="Shorten a URL with v.gd.",
+        description="Shorten a URL with v.gd, falling back to TinyURL.",
     )
     parser.add_argument("--url", required=True)
     args = parser.parse_args(argv)
@@ -42,9 +42,19 @@ def main(argv: list[str] | None = None) -> int:
     return EXIT_OK
 
 
+_PASSTHROUGH_HOSTS = {
+    "v.gd": "v.gd",
+    "tinyurl.com": "tinyurl.com",
+    "www.tinyurl.com": "tinyurl.com",
+}
+
+
 def _passthrough(parsed) -> str | None:
     host = parsed.hostname
-    if host is None or host.lower() != "v.gd":
+    if host is None:
+        return None
+    canon = _PASSTHROUGH_HOSTS.get(host.lower())
+    if canon is None:
         return None
     path = parsed.path
     if not path.lstrip("/"):
@@ -53,7 +63,7 @@ def _passthrough(parsed) -> str | None:
         path = "/" + path
     query = f"?{parsed.query}" if parsed.query else ""
     fragment = f"#{parsed.fragment}" if parsed.fragment else ""
-    return f"https://v.gd{path}{query}{fragment}"
+    return f"https://{canon}{path}{query}{fragment}"
 
 
 if __name__ == "__main__":

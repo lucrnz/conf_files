@@ -1,6 +1,6 @@
 ---
 name: shorten-url
-description: Shorten a URL with v.gd. Use when the user wants to shorten a URL or runs /shorten-url.
+description: Shorten a URL with v.gd, or TinyURL if v.gd cannot create the link. Use when the user wants to shorten a URL or runs /shorten-url.
 ---
 
 # shorten-url

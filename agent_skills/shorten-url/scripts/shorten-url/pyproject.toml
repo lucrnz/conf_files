@@ -1,7 +1,7 @@
 [project]
 name = "shorten-url"
 version = "0.1.0"
-description = "Shorten a URL with v.gd"
+description = "Shorten a URL with v.gd, falling back to TinyURL"
 requires-python = ">=3.11"
 dependencies = []
 
