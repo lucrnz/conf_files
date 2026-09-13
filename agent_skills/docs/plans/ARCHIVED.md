@@ -93,3 +93,35 @@ rm 'agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/cont
  delete mode 100644 agent_skills/docs/plans/2026-08-21-9iuxnqqu-construction-contracts-done/context/design.md
 45def2ebf6af9d61190622b30d2ba71f58006c1b
 ```
+
+## 2026-08-22-xknvle9g-notify-skill-done
+
+**Title:** Notify skill
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/01-notify-cli.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/02-notify-skill.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/03-notify-me-alias.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design.md'
+[main 5e5d952] docs(agent_skills): archive notify-skill
+ 4 files changed, 232 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/01-notify-cli.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/02-notify-skill.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/03-notify-me-alias.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design.md
+5e5d952a149eb813d0dac8e7d9401014fe4bc6a5`
+
+Added notify (auto-invoke) and notify-me (slash alias) plus a uv CLI that posts a desktop banner on macOS and Linux. Open the diff for the cue/yield rules, backend order, and exit codes the living skills still document.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/01-notify-cli.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/02-notify-skill.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/03-notify-me-alias.md'
+rm 'agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design.md'
+[main 5e5d952] docs(agent_skills): archive notify-skill
+ 4 files changed, 232 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/01-notify-cli.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/02-notify-skill.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/03-notify-me-alias.md
+ delete mode 100644 agent_skills/docs/plans/2026-08-22-xknvle9g-notify-skill-done/context/design.md
+5e5d952a149eb813d0dac8e7d9401014fe4bc6a5
+```
