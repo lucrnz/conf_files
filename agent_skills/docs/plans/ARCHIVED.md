@@ -165,3 +165,43 @@ rm 'agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planni
  delete mode 100644 agent_skills/docs/plans/2026-09-05-20av91yc-ask-user-done/context/pre_planning_session.md
 666828eab2b49b53e04c846dfb409cd6c41798f6
 ```
+
+## 2026-09-10-jdmwc8j1-ask-user-ssh-done
+
+**Title:** ask-user over SSH
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/01-ssh-detect.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/02-http-wizard.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/03-untun-bridge.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/04-skill-docs.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/design.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_planning_session.md'
+[main 2061b66] docs(agent_skills): archive ask-user-ssh
+ 6 files changed, 405 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/01-ssh-detect.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/02-http-wizard.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/03-untun-bridge.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/04-skill-docs.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/design.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_planning_session.md
+2061b660fda0fba78305359c1bdc09f5232cab5a`
+
+Gave ask-user an SSH path that skips Qt, serves a tunneled 7.css wizard, and keeps the same JSON/exit contract. Open the diff for SSH detection, the unused fuse, the ask-user: URL line, and the untun/http_wizard split.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/01-ssh-detect.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/02-http-wizard.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/03-untun-bridge.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/04-skill-docs.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/design.md'
+rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_planning_session.md'
+[main 2061b66] docs(agent_skills): archive ask-user-ssh
+ 6 files changed, 405 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/01-ssh-detect.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/02-http-wizard.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/03-untun-bridge.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/04-skill-docs.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/design.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_planning_session.md
+2061b660fda0fba78305359c1bdc09f5232cab5a
+```
