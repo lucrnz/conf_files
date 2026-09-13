@@ -1,7 +1,7 @@
 # Stage 02: Skill
 
 ## Status
-pending
+done
 
 ## Description
 

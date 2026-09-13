@@ -1,7 +1,7 @@
 # Stage 01: CLI
 
 ## Status
-pending
+done
 
 ## Description
 
@@ -33,6 +33,7 @@ A verify step that passes a non-v.gd `http(s)` URL will hit the live API. Usage 
 - `shorten-url/scripts/shorten-url/src/shorten_url/__init__.py`
 - `shorten-url/scripts/shorten-url/src/shorten_url/cli.py`
 - `shorten-url/scripts/shorten-url/src/shorten_url/client.py`
+- `shorten-url/scripts/shorten-url/.gitignore`
 
 ### Steps
 
