@@ -205,3 +205,35 @@ rm 'agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_pl
  delete mode 100644 agent_skills/docs/plans/2026-09-10-jdmwc8j1-ask-user-ssh-done/context/pre_planning_session.md
 2061b660fda0fba78305359c1bdc09f5232cab5a
 ```
+
+## 2026-09-10-t9uehccf-ask-user-vgd-done
+
+**Title:** Shorten ask-user tunnel URLs with v.gd
+
+**Commit:** `rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/01-vgd-client.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/02-wire-ssh.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/03-readme.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design.md'
+[main 9da50b2] docs(agent_skills): archive ask-user-vgd
+ 4 files changed, 221 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/01-vgd-client.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/02-wire-ssh.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/03-readme.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design.md
+9da50b2a20c8b6dc40973721de9534c7e0d0c1df`
+
+POSTs the SSH wizard URL to v.gd and prints the short link on the existing ask-user: stderr line, falling back to the long Cloudflare URL on failure. Open the diff for the POST/parse/retry rules and the silent SKILL.md relay contract.
+
+```bash
+git show rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/01-vgd-client.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/02-wire-ssh.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/03-readme.md'
+rm 'agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design.md'
+[main 9da50b2] docs(agent_skills): archive ask-user-vgd
+ 4 files changed, 221 deletions(-)
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/01-vgd-client.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/02-wire-ssh.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/03-readme.md
+ delete mode 100644 agent_skills/docs/plans/2026-09-10-t9uehccf-ask-user-vgd-done/context/design.md
+9da50b2a20c8b6dc40973721de9534c7e0d0c1df
+```
