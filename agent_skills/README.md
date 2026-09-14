@@ -17,7 +17,7 @@ for skill in "$REPO_SKILLS"/*/; do
 done
 ```
 
-One-off:
+One-off: symlink the named skill, then also symlink each name listed in that skill's `DEPENDENCIES.md` (format and recurse in [AGENTS.md](AGENTS.md)).
 
 ```bash
 ln -sfn /path/to/agent_skills/deslop ~/.agents/skills/deslop

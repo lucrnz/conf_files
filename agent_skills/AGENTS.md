@@ -16,9 +16,19 @@ If they say "install \<skill\>" and do **not** name a target:
 2. Ask with these options, recommended first: **Both**, **Agents** (symlinks), **OpenCode** (hard copy).
 3. Do the matching steps below. **Both** means Agents then OpenCode.
 
+### Dependencies
+
+Some skills need other repo skills. Those skills list them in `DEPENDENCIES.md` at the skill root.
+
+Ignore empty lines and lines whose first non-space character is `#`. Every other line is the directory name of a sibling repo skill.
+
+After installing skill `$name`, if `"$REPO/$name/DEPENDENCIES.md"` exists, install each parsed name that is a repo skill. Recurse through those files. Skip a name already visited in this install. If a parsed name is not a repo skill, stop and report it. Do not invent names.
+
+Apply this after the named skill is copied or symlinked, for both Agents and OpenCode.
+
 ### Agents (`~/.agents/skills`)
 
-Follow `./README.md`.
+Follow `./README.md`. After the named skill is linked, install its dependencies (this section).
 
 ### OpenCode (`~/.config/opencode/skills`)
 
@@ -40,7 +50,7 @@ rsync -a --delete \
   "$REPO/$name/" "$DEST/$name/"
 ```
 
-**Install one skill for OpenCode:** dest prep, then copy that skill. (A first write already seeded every repo skill.)
+**Install one skill for OpenCode:** dest prep, copy that skill, then install its dependencies (see Dependencies). (A first write already seeded every repo skill.)
 
 **"update my opencode skills":** dest prep, then for every repo skill compare dest to source (`diff -rq` with the same excludes, or `rsync -n`). If the dest skill is missing or files differ, copy as above. Leave dest-only skills (directories in `DEST` that are not repo skills) alone.
 
