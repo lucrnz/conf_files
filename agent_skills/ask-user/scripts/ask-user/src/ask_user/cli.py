@@ -77,7 +77,7 @@ def run_ssh_picker(payload: Payload) -> list[Answer] | None:
         port = picker.bind()
         tunnel = start_tunnel(port)
         public = f"{tunnel.origin.rstrip('/')}/t/{token}/"
-        from ask_user.shorten import shorten
+        from shorten_url.client import shorten
 
         printed = shorten(public) or public
         print(f"ask-user: {printed}", file=sys.stderr, flush=True)
