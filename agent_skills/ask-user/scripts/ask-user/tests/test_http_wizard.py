@@ -250,5 +250,5 @@ def test_http_wizard_import_does_not_load_pyside6() -> None:
     import ask_user.http_wizard as http_mod
 
     after = {name for name in sys.modules if name == "PySide6" or name.startswith("PySide6.")}
-    assert http_mod.DEFAULT_UNUSED_TIMEOUT_SECS == 600.0
+    assert http_mod.DEFAULT_UNUSED_TIMEOUT_SECS == 2400.0
     assert after == before

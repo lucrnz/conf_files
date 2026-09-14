@@ -21,7 +21,7 @@ Never invoke with a cwd-relative `ask-user/scripts/ask-user` path. Feed the JSON
 
 The CLI auto-detects SSH (`SSH_CONNECTION`, `SSH_CLIENT`, or `SSH_TTY` in the command environment) and does not open a desktop window then. Do not pass flags to choose a backend.
 
-If that environment has a non-empty `SSH_CONNECTION`, `SSH_CLIENT`, or `SSH_TTY`, set the shell/command tool timeout to at least 4 hours (14400000 ms if the tool uses milliseconds). Otherwise set it to at least 10 minutes (600000 ms). The CLI waits 10 minutes for the tunneled page to be opened; after that beacon it does not time out.
+If that environment has a non-empty `SSH_CONNECTION`, `SSH_CLIENT`, or `SSH_TTY`, set the shell/command tool timeout to at least 4 hours (14400000 ms if the tool uses milliseconds). Otherwise set it to at least 10 minutes (600000 ms). The CLI waits 40 minutes for the tunneled page to be opened; after that beacon it does not time out.
 
 As soon as stderr contains a line starting with `ask-user: `, print the rest of that line to the user immediately and keep waiting. That line is the wizard URL, not the answers JSON.
 

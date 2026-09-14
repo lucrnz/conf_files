@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 from ask_user.payload import Answer, Payload, first_incomplete
 
 TEMPLATE_PATH = Path(__file__).resolve().parent / "static" / "wizard.html"
-DEFAULT_UNUSED_TIMEOUT_SECS = 600.0
+DEFAULT_UNUSED_TIMEOUT_SECS = 2400.0
 
 
 class UnusedTimeout(Exception):
