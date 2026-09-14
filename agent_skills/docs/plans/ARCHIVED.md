@@ -145,3 +145,15 @@ Added a shorten-url skill and uv CLI that POSTs one --url to v.gd, pass-throughs
 ```bash
 git show cacbdad9a3a72ae7a5c1d6a6dbc06609697d452f
 ```
+
+## 2026-09-14-lavqwijh-ask-user-unused-timeout-done
+
+**Title:** Ask-user unused fuse, shorten-url, and skill dependencies
+
+**Commit:** `5bf1e34d2629d7357f01f8a6649545ebdd3dafbe`
+
+Raised the SSH unused fuse to 40 minutes and replaced ask-user's v.gd-only shortener with the sibling shorten-url client. Skills can declare sibling deps in DEPENDENCIES.md so one-skill installs pull them. Open the diff for the 2400s fuse, the path-dep and deleted ask_user.shorten, and the AGENTS.md parse/recurse install rule.
+
+```bash
+git show 5bf1e34d2629d7357f01f8a6649545ebdd3dafbe
+```
